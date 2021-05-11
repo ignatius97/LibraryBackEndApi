@@ -4,7 +4,6 @@ const { ObjectId } = require('mongodb');
 // importing to the models
 require('../Models/BookModel'); 
 require('../Models/AuthorModel'); 
-const BookController = require('../Controllers/BookController');
 // Getting mongoose and passport to connect to the database and authenticate users
 const mongoose = require('mongoose');
 
