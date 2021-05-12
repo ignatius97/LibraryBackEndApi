@@ -8,7 +8,11 @@ const cors = require('cors');
 
 var app = express();
 
-app.use(bodyParser.json())  
+app.use(express.json()) 
+
+app.use(express.raw())
+
+app.use(express.text({ type: 'text/html' }))
     
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -18,6 +22,7 @@ app.use(cors())
 
 const swaggerOptions = {
     definition: {
+      openapi: '3.0.0',
       info: {
         title: 'Library API',
         version: '1.0.0',
@@ -104,10 +109,18 @@ app.listen( port , function () {
  * /Books/SingleBook:
  *      post:
  *          description: Get single book by id
- *          parameters:
- *          - name : id
- *            description : the id of the book
- *            type : string
+ *          requestBody:
+ *              description: user info to be filled
+ *              content:
+ *                application/x-www-form-urlencoded:
+ *                  schema:
+ *                    type: object
+ *                    required:
+ *                     - id
+ *                    properties:
+ *                      id:
+ *                        type: string
+ *                        description: id of the Book
  *          responses:
  *              200:
  *                  description: success
@@ -133,13 +146,22 @@ app.listen( port , function () {
  * /Books/AddBook:
  *      post:
  *          description: Create a book
- *          parameters:
- *          - name : title
- *            description : title of the book
- *            type : string
- *          - name : author
- *            description : Id of the author of the book
- *            type : string
+ *          requestBody:
+ *              description: user info to be filled
+ *              content:
+ *                application/x-www-form-urlencoded:
+ *                  schema:
+ *                    type: object
+ *                    required:
+ *                     - title
+ *                     - author
+ *                    properties:
+ *                      title:
+ *                        type: string
+ *                        description: Title of the Book
+ *                      author:
+ *                        type: string
+ *                        description: Id of the author of the book
  *          responses:
  *              201:
  *                  description: Book Created
@@ -151,16 +173,24 @@ app.listen( port , function () {
  * /Books/UpdateBook:
  *      put:
  *          description: Update a book
- *          parameters:
- *          - name : id
- *            description : id of the book
- *            type : string
- *          - name : title
- *            description : title of the book (optional)
- *            type : string
- *          - name : author
- *            description : Owner of the book (optional)
- *            type : string
+ *          requestBody:
+ *              description: user info to be filled
+ *              content:
+ *                application/x-www-form-urlencoded:
+ *                  schema:
+ *                    type: object
+ *                    required:
+ *                     - id
+ *                    properties:
+ *                      id:
+ *                        type: string
+ *                        description: id of the book
+ *                      title:
+ *                        type: string
+ *                        description: title of the book (optional)
+ *                      author:
+ *                        type: string
+ *                        description: Owner of the book (optional)
  *          responses:
  *              201:
  *                  description: Book Updated
@@ -172,10 +202,18 @@ app.listen( port , function () {
  * /Books/DelBook:
  *      delete:
  *          description: delete a book
- *          parameters:
- *          - name : id
- *            description : id of the book
- *            type : string
+ *          requestBody:
+ *              description: user info to be filled
+ *              content:
+ *                application/x-www-form-urlencoded:
+ *                  schema:
+ *                    type: object
+ *                    required:
+ *                     - id
+ *                    properties:
+ *                      id:
+ *                        type: string
+ *                        description: id of the Book
  *          responses:
  *              201:
  *                  description: Book Deleted
@@ -221,10 +259,18 @@ app.listen( port , function () {
  * /Authors/SingleAuthor:
  *      post:
  *          description: Get single Author by id
- *          parameters:
- *          - name : id
- *            description : the id of the Author
- *            type : string
+ *          requestBody:
+ *              description: user info to be filled
+ *              content:
+ *                application/x-www-form-urlencoded:
+ *                  schema:
+ *                    type: object
+ *                    required:
+ *                     - id
+ *                    properties:
+ *                      id:
+ *                        type: string
+ *                        description: id of the author
  *          responses:
  *              200:
  *                  description: success
@@ -253,10 +299,18 @@ app.listen( port , function () {
  * /Authors/AddAuthor:
  *      post:
  *          description: Create a book
- *          parameters:
- *          - name : name
- *            description : name of the author
- *            type : string
+ *          requestBody:
+ *              description: user info to be filled
+ *              content:
+ *                application/x-www-form-urlencoded:
+ *                  schema:
+ *                    type: object
+ *                    required:
+ *                     - name
+ *                    properties:
+ *                      name:
+ *                        type: string
+ *                        description: the author name
  *          responses:
  *              201:
  *                  description: Author Created
@@ -268,13 +322,22 @@ app.listen( port , function () {
  * /Authors/UpdateAuthor:
  *      put:
  *          description: Update the author
- *          parameters:
- *          - name : id
- *            description : id of the author
- *            type : string
- *          - name : name
- *            description : new name of the author
- *            type : string
+ *          requestBody:
+ *              description: user info to be filled
+ *              content:
+ *                application/x-www-form-urlencoded:
+ *                  schema:
+ *                    type: object
+ *                    required:
+ *                     - id
+ *                     - name
+ *                    properties:
+ *                      id:
+ *                        type: string
+ *                        description: id of the author
+ *                      name:
+ *                        type: string
+ *                        description: new name of the author
  *          responses:
  *              201:
  *                  description: Author Updated
@@ -286,10 +349,18 @@ app.listen( port , function () {
  * /Authors/DelAuthor:
  *      delete:
  *          description: delete an author. deletes all there books too
- *          parameters:
- *          - name : id
- *            description : id of the author
- *            type : string
+ *          requestBody:
+ *              description: user info to be filled
+ *              content:
+ *                application/x-www-form-urlencoded:
+ *                  schema:
+ *                    type: object
+ *                    required:
+ *                     - id
+ *                    properties:
+ *                      id:
+ *                        type: string
+ *                        description: id of the author
  *          responses:
  *              201:
  *                  description: Author Deleted

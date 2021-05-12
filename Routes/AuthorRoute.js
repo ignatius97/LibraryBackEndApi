@@ -75,9 +75,9 @@ router.delete('/DelAuthor', async(req , res)=>{
     try {
         // get the author data in order to get the books list
         const author = await AuthorModel.findOne({_id: req.body.id });
-        console.log(author);
+        console.log(author.books);
         // delete all the books in the booksModel in this list
-        if(author.books !== null){
+        if(author.books !== null || author.books.length > 0){
             const Delbooks = await BookModel.deleteMany(
                 {
                     _id: {
